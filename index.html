@@ -1,60 +1,163 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Surpresa para Meu Amor</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #ff9acb, #ffb6e6);
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            color: #fff;
-        }
-        .container {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 30px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            max-width: 500px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
-        }
-        .foto {
-            width: 100%;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-        h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 18px;
-            line-height: 1.5;
-        }
-        .emoji {
-            font-size: 26px;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Surpresa para Meu Amor</title>
+  <style>
+    :root{
+      --bg1: #ff9acb;
+      --bg2: #ffb6e6;
+      --glass: rgba(255,255,255,0.14);
+      --accent: #fff3f8;
+      --text: #ffffff;
+      --muted: rgba(255,255,255,0.9);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: radial-gradient(1200px 600px at 10% 10%, rgba(255,255,255,0.06), transparent), linear-gradient(135deg,var(--bg1),var(--bg2)); color:var(--text)}
+
+    .wrap{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+    }
+
+    .card{
+      width:100%;
+      max-width:640px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border-radius:20px;
+      padding:28px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.25);
+      backdrop-filter: blur(8px) saturate(120%);
+      border:1px solid rgba(255,255,255,0.06);
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* subtle decorative hearts */
+    .hearts{position:absolute;right:-40px;top:-40px;opacity:0.08;transform:rotate(25deg);font-size:120px;pointer-events:none}
+
+    .photo{
+      width:120px;height:120px;border-radius:18px;object-fit:cover;display:block;margin:0 auto 18px;box-shadow:0 6px 18px rgba(0,0,0,0.28);border:4px solid rgba(255,255,255,0.06);
+    }
+
+    h1{font-size:26px;margin:0 0 6px}
+    .lead{color:var(--muted);font-size:16px;margin:0 0 18px}
+
+    .info{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px;
+    }
+    .info .item{background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .item .label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+    .item .value{font-weight:700;font-size:14px}
+
+    p.note{font-size:15px;line-height:1.45;margin:0 0 18px}
+
+    .actions{display:flex;gap:12px;justify-content:center}
+    .btn{
+      background:linear-gradient(90deg,#ffffff22,#ffffff11);
+      color:var(--text);border:0;padding:12px 18px;border-radius:12px;font-weight:600;cursor:pointer;backdrop-filter: blur(4px);
+      box-shadow:0 6px 18px rgba(0,0,0,0.18);transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn.primary{background:linear-gradient(90deg,#ffd2ea,#ff98d1);color:#6b0036}
+
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.08)}
+
+    /* modal */
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.48);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .2s ease}
+    .overlay.show{opacity:1;pointer-events:auto}
+    .modal{background:linear-gradient(180deg,#ffffff0f,#ffffff06);padding:20px;border-radius:14px;max-width:420px;width:100%;box-shadow:0 14px 50px rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.05)}
+    .modal h2{margin:0 0 8px;font-size:20px;color:var(--text)}
+    .modal p{margin:0 0 12px;color:var(--muted)}
+
+    /* responsive tweaks */
+    @media (max-width:520px){
+      .card{padding:18px;border-radius:16px}
+      .photo{width:100px;height:100px;border-radius:50%;margin-bottom:12px}
+      .info{grid-template-columns:1fr;gap:10px}
+      h1{font-size:22px}
+      .lead{font-size:15px}
+      .btn{padding:10px 14px}
+      .hearts{font-size:88px;right:-20px;top:-20px}
+    }
+
+    /* small floating heart animation */
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+    .pulse{display:inline-block;animation:floaty 2.6s ease-in-out infinite}
+  </style>
 </head>
 <body>
-    <div class="container">
-        <img src="nossa_foto.jpg" alt="Nossa foto" class="foto" />
-        <h1>Olá, Amor ❤️</h1>
-        <p>
-            Em comemoração aos nossos <strong>6 anos juntos</strong> 🥰<br>
-            Quero lhe fazer um convite especial para um jantar romântico 🍝✨<br><br>
-            E claro... com direito a <strong>sobremesa</strong> 🍰😉
-            <br><br>
-            <strong>Dia 30/11 às 19:00</strong> ⏰💗
-        </p>
-    </div>
-</body>
+  <div class="wrap">
+    <div class="card" role="main">
+      <div class="hearts">❤️❤️</div>
+      <img src="nossa_foto.jpg" alt="Nossa foto" class="photo" id="profilePhoto"/>
+      <h1>Olá, Amor <span class="pulse">❤️</span></h1>
+      <div class="lead">Em comemoração aos nossos <strong>6 anos juntos</strong> — uma noite diferente, só nossa.</div>
 
+      <div class="info" aria-hidden="false">
+        <div class="item">
+          <span class="label">📅 Dia</span>
+          <div class="value">30/11</div>
+        </div>
+        <div class="item">
+          <span class="label">👗 Traje</span>
+          <div class="value">O que te faz se sentir incrível</div>
+        </div>
+        <div class="item">
+          <span class="label">📍 Locais</span>
+          <div class="value">Surpresa 👀💗</div>
+        </div>
+      </div>
+
+      <p class="note">Prepare-se para uma noite que a gente vai lembrar. Primeiro: uma surpresa reservada só pra nós. Depois: nosso jantar especial de sushi. 💫</p>
+
+      <div class="actions">
+        <button class="btn primary" id="revealBtn">Clique para ver a surpresa</button>
+        <a class="btn ghost" href="#" id="downloadBtn">Salvar convite</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal overlay -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h2 id="modalTitle">Prontinho 💕</h2>
+      <p id="modalText">Prepare-se para algo especial — te busco às 19:00. Os detalhes mais íntimos eu te conto pessoalmente, prometo que vai ser inesquecível. 😘</p>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px">
+        <button class="btn ghost" id="closeModal">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const overlay = document.getElementById('overlay');
+    const revealBtn = document.getElementById('revealBtn');
+    const closeModal = document.getElementById('closeModal');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    revealBtn.addEventListener('click', ()=>{
+      overlay.classList.add('show');
+      overlay.setAttribute('aria-hidden','false');
+    });
+    closeModal.addEventListener('click', ()=>{
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden','true');
+    });
+    overlay.addEventListener('click', (e)=>{ if(e.target === overlay){ overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); }});
+
+    // Download a small PNG snapshot of the card (client-side) - graceful fallback if html2canvas not present
+    downloadBtn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      // If browser supports toDataURL on canvas (we'll try a simple approach):
+      // fallback: just open print dialog to save as PDF/PNG
+      if(window.print){
+        window.print();
+      }
+    });
+  </script>
+</body>
 </html>
