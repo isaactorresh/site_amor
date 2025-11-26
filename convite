@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Surpresa para Meu Amor</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9acb, #ffb6e6);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            color: #fff;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+        .foto {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        .emoji {
+            font-size: 26px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="SUA-FOTO-AQUI.jpg" alt="Nossa foto" class="foto" />
+        <h1>Olá, Amor ❤️</h1>
+        <p>
+            Em comemoração aos nossos <strong>6 anos juntos</strong> 🥰<br>
+            Quero lhe fazer um convite especial para um jantar romântico 🍝✨<br><br>
+            E claro... com direito a <strong>sobremesa</strong> 🍰😉
+            <br><br>
+            <strong>Dia 30/11 às 19:00</strong> ⏰💗
+        </p>
+    </div>
+</body>
+</html>
