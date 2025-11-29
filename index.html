@@ -6,161 +6,211 @@
   <title>Surpresa para Meu Amor</title>
   <style>
     :root{
-      --bg1: #ff9acb;
-      --bg2: #ffb6e6;
-      --glass: rgba(255,255,255,0.14);
-      --accent: #fff3f8;
-      --text: #ffffff;
-      --muted: rgba(255,255,255,0.9);
+      --bg1:#6ecbff; /* azul claro */
+      --bg2:#aee6ff; /* azul mais claro */
+      --glass:rgba(255,255,255,0.12);
+      --text:#03263f;
+      --muted:rgba(3,38,63,0.85);
+      --card-bg: rgba(255,255,255,0.92);
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: radial-gradient(1200px 600px at 10% 10%, rgba(255,255,255,0.06), transparent), linear-gradient(135deg,var(--bg1),var(--bg2)); color:var(--text)}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; 
+      background: radial-gradient(1000px 500px at 20% 10%, rgba(255,255,255,0.18), transparent),
+                  linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
+    /* layout centrado */
     .wrap{
       min-height:100vh;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:32px;
+      padding:28px;
     }
 
     .card{
       width:100%;
-      max-width:640px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      border-radius:20px;
-      padding:28px;
-      box-shadow:0 8px 30px rgba(0,0,0,0.25);
-      backdrop-filter: blur(8px) saturate(120%);
-      border:1px solid rgba(255,255,255,0.06);
-      position:relative;
+      max-width:700px;
+      background:var(--card-bg);
+      border-radius:18px;
+      padding:28px 28px;
+      box-shadow:0 10px 40px rgba(3,38,63,0.12);
+      border:1px solid rgba(3,38,63,0.06);
+      text-align:center;
       overflow:hidden;
     }
 
-    /* subtle decorative hearts */
-    .hearts{position:absolute;right:-40px;top:-40px;opacity:0.08;transform:rotate(25deg);font-size:120px;pointer-events:none}
+    /* decoração sutil (corações em fundo) */
+    .hearts{
+      position:absolute;
+      right:10px;
+      top:10px;
+      font-size:72px;
+      color: rgba(3,38,63,0.03);
+      pointer-events:none;
+      user-select:none;
+    }
 
     .photo{
-      width:120px;height:120px;border-radius:18px;object-fit:cover;display:block;margin:0 auto 18px;box-shadow:0 6px 18px rgba(0,0,0,0.28);border:4px solid rgba(255,255,255,0.06);
+      width:150px;
+      height:150px;
+      border-radius:20px;
+      object-fit:cover;
+      display:block;
+      margin:0 auto 18px;
+      box-shadow:0 8px 26px rgba(3,38,63,0.12);
+      border:4px solid rgba(255,255,255,0.7);
     }
 
-    h1{font-size:26px;margin:0 0 6px}
-    .lead{color:var(--muted);font-size:16px;margin:0 0 18px}
-
-    .info{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px;
+    h1{
+      font-size:28px;
+      margin:0 0 8px;
+      color:var(--text);
     }
-    .info .item{background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
-    .item .label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
-    .item .value{font-weight:700;font-size:14px}
 
-    p.note{font-size:15px;line-height:1.45;margin:0 0 18px}
+    .lead{
+      color:var(--muted);
+      font-size:16px;
+      margin:0 0 18px;
+      line-height:1.5;
+    }
 
-    .actions{display:flex;gap:12px;justify-content:center}
+    .note{
+      font-size:15px;
+      color:var(--muted);
+      margin:0 0 22px;
+      line-height:1.5;
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
     .btn{
-      background:linear-gradient(90deg,#ffffff22,#ffffff11);
-      color:var(--text);border:0;padding:12px 18px;border-radius:12px;font-weight:600;cursor:pointer;backdrop-filter: blur(4px);
-      box-shadow:0 6px 18px rgba(0,0,0,0.18);transition:transform .18s ease, box-shadow .18s ease;
+      background:linear-gradient(90deg,#e6f7ff,#d0f0ff);
+      color:var(--text);
+      border:0;
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 8px 20px rgba(3,38,63,0.08);
+      transition:transform .16s ease, box-shadow .16s ease;
     }
     .btn:active{transform:translateY(1px)}
-    .btn.primary{background:linear-gradient(90deg,#ffd2ea,#ff98d1);color:#6b0036}
-
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.08)}
-
-    /* modal */
-    .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.48);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .2s ease}
-    .overlay.show{opacity:1;pointer-events:auto}
-    .modal{background:linear-gradient(180deg,#ffffff0f,#ffffff06);padding:20px;border-radius:14px;max-width:420px;width:100%;box-shadow:0 14px 50px rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.05)}
-    .modal h2{margin:0 0 8px;font-size:20px;color:var(--text)}
-    .modal p{margin:0 0 12px;color:var(--muted)}
-
-    /* responsive tweaks */
-    @media (max-width:520px){
-      .card{padding:18px;border-radius:16px}
-      .photo{width:100px;height:100px;border-radius:50%;margin-bottom:12px}
-      .info{grid-template-columns:1fr;gap:10px}
-      h1{font-size:22px}
-      .lead{font-size:15px}
-      .btn{padding:10px 14px}
-      .hearts{font-size:88px;right:-20px;top:-20px}
+    .btn.ghost{
+      background:transparent;
+      border:1px solid rgba(3,38,63,0.07);
     }
 
-    /* small floating heart animation */
-    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
-    .pulse{display:inline-block;animation:floaty 2.6s ease-in-out infinite}
+    /* modal overlay */
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(3,38,63,0.45);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .18s ease;
+    }
+    .overlay.show{opacity:1;pointer-events:auto}
+    .modal{
+      width:100%;
+      max-width:520px;
+      background:linear-gradient(180deg, #ffffff, #fbfdff);
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 20px 60px rgba(3,38,63,0.2);
+      text-align:left;
+      color:var(--text);
+    }
+    .modal h2{margin:0 0 8px;font-size:20px}
+    .modal p{margin:0 0 12px;color:var(--muted);line-height:1.4}
+    .modal .actions{justify-content:flex-end;margin-top:8px}
+
+    /* responsividade */
+    @media (max-width:560px){
+      .card{padding:18px;border-radius:12px}
+      .photo{width:110px;height:110px;border-radius:14px;margin-bottom:14px}
+      h1{font-size:22px}
+      .lead,.note{font-size:15px}
+      .modal{padding:14px}
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="card" role="main">
-      <div class="hearts">❤️❤️</div>
-      <img src="nossa_foto.jpg" alt="Nossa foto" class="photo" id="profilePhoto"/>
-      <h1>Olá, Amor <span class="pulse">❤️</span></h1>
-      <div class="lead">Em comemoração aos nossos <strong>7 anos juntos</strong> — uma noite diferente, só nossa.</div>
+    <div class="card" role="main" aria-labelledby="title">
+      <div class="hearts" aria-hidden="true">💕</div>
 
-      <div class="info" aria-hidden="false">
-        <div class="item">
-          <span class="label">📅 Dia</span>
-          <div class="value">30/11</div>
-        </div>
-        <div class="item">
-          <span class="label">👗 Traje</span>
-          <div class="value">O que te faz se sentir incrível</div>
-        </div>
-        <div class="item">
-          <span class="label">📍 Locais e horas</span>
-          <div class="value">As 19h e Surpresa 👀💗</div>
-        </div>
-      </div>
+      <!-- substitua 'nossa_foto.jpg' pelo nome do arquivo que você fez upload -->
+      <img src="nossa_foto.jpg" alt="Nossa foto" class="photo" />
 
-      <p class="note">Prepare-se para uma noite que a gente vai lembrar. Uma surpresa reservada só pra nós e nosso jantar especial. 💫</p>
+      <h1 id="title">Amor ❤️</h1>
+
+      <p class="lead">
+        Te agradeço por todos esses <strong>7 anos</strong> ao seu lado. Você me faz feliz, me completa e me faz sentir amado.
+        Quero estar sempre contigo, nas suas conquistas ✨ ou nos momentos difíceis 🤍. Você faz parte de mim e me transforma em uma pessoa melhor.
+      </p>
+
+      <p class="note">
+        Quero te presentear com uma sensação, uma nova memória 📸 e algo que a Débora sempre quis, e que agora vai realizar.
+      </p>
 
       <div class="actions">
-        <button class="btn primary" id="revealBtn">Clique para ver a surpresa</button>
-        <a class="btn ghost" href="#" id="downloadBtn">Salvar convite</a>
+        <button class="btn" id="revealBtn">Clique para ver a surpresa</button>
+        <button class="btn ghost" id="printBtn" onclick="window.print();">Salvar convite</button>
       </div>
     </div>
   </div>
 
-  <!-- modal overlay -->
+  <!-- modal -->
   <div class="overlay" id="overlay" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <h2 id="modalTitle">Prontinho 💕</h2>
-      <p id="modalText">Prometo que vai ser inesquecível. Te amo. 😘</p>
-      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px">
+      <h2 id="modalTitle">Surpresa 💌</h2>
+      <p id="modalText">Você vai ao Planeta Atlântida 2026 🎤🎉 para curtir, comemorar e ser feliz.<br><strong>Te amo! ❤️‍🔥</strong></p>
+      <div class="actions" style="margin-top:8px">
         <button class="btn ghost" id="closeModal">Fechar</button>
       </div>
     </div>
   </div>
 
   <script>
+    // comportamento do modal
     const overlay = document.getElementById('overlay');
     const revealBtn = document.getElementById('revealBtn');
     const closeModal = document.getElementById('closeModal');
-    const downloadBtn = document.getElementById('downloadBtn');
 
-    revealBtn.addEventListener('click', ()=>{
+    revealBtn.addEventListener('click', () => {
       overlay.classList.add('show');
       overlay.setAttribute('aria-hidden','false');
     });
-    closeModal.addEventListener('click', ()=>{
+    closeModal.addEventListener('click', () => {
       overlay.classList.remove('show');
       overlay.setAttribute('aria-hidden','true');
     });
-    overlay.addEventListener('click', (e)=>{ if(e.target === overlay){ overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); }});
-
-    // Download a small PNG snapshot of the card (client-side) - graceful fallback if html2canvas not present
-    downloadBtn.addEventListener('click', (e)=>{
-      e.preventDefault();
-      // If browser supports toDataURL on canvas (we'll try a simple approach):
-      // fallback: just open print dialog to save as PDF/PNG
-      if(window.print){
-        window.print();
+    // fechar clicando fora
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove('show');
+        overlay.setAttribute('aria-hidden','true');
       }
+    });
+
+    // prevenir reabrir se já clicou (opcional)
+    // localStorage usado se quiser evitar repetir a surpresa várias vezes no mesmo navegador
+    revealBtn.addEventListener('click', () => {
+      try { localStorage.setItem('surpresa_vista', '1'); } catch(e){}
     });
   </script>
 </body>
 </html>
-
-
-
